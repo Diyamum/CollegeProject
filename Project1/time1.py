@@ -90,10 +90,7 @@ clifs = [svc ,lsvc, rforest, dtree]
 # train and test them
 print("| {:40} | {} |  {} | {} |".format("Classifier", "Training Accuracy", "Validation Accuracy","Test Accuracy"))
 print("| {} | {} |  {} | {} |".format("-"*40, "-"*17, "-"*19,"-"*13))
-for clf in clifs:
-    clf_name = clf.__class__.__name__
-    train_acc, valid_acc, test_acc = train_test(clf, X_train, X_valid, X_test, y_train, y_valid, y_test)
-    print("| {:40} | {:17f} | {:19f} | {:13f} |".format(clf_name, train_acc,valid_acc, test_acc))
+
 
 l = ["joy", 'fear', "anger", "sadness", "disgust", "shame", "guilt"]
 l.sort()
@@ -114,12 +111,16 @@ for l in sorted(label_freq, key=label_freq.get, reverse=True):
 
 
 
-for text in texts:
-    features = create_feature(text, nrange=(1, 4))
-    features = vectorizer.transform(features)
-    prediction = clf.predict(features)[0]
-    print(text, emoji_dict[prediction])
+for clf in clifs:
+    clf_name = clf.__class__.__name__
+    train_acc, valid_acc, test_acc = train_test(clf, X_train, X_valid, X_test, y_train, y_valid, y_test)
+    print("| {:40} | {:17f} | {:19f} | {:13f} |\n".format(clf_name, train_acc,valid_acc, test_acc))
+    for text in texts:
+        features = create_feature(text, nrange=(1, 4))
+        features = vectorizer.transform(features)
+        prediction = clf.predict(features)[0]
+        print(text, emoji_dict[prediction])
 et = time.time()
 elapsed_time = et - st
 el_time= elapsed_time/60
-print('\n Time Elapsed:', "%.2f" %el_time, 'Mins')
+print('\nTime Elapsed:', "%.2f" %el_time, 'Mins')
