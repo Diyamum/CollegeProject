@@ -85,7 +85,7 @@ lsvc = LinearSVC(random_state=123)
 rforest = RandomForestClassifier(random_state=124)
 dtree = DecisionTreeClassifier()
 
-clifs = [svc,lsvc, rforest, dtree]  
+clifs = [svc ,lsvc, rforest, dtree]
 
 # train and test them
 print("| {:40} | {} |  {} | {} |".format("Classifier", "Training Accuracy", "Validation Accuracy","Test Accuracy"))
@@ -114,11 +114,11 @@ for l in sorted(label_freq, key=label_freq.get, reverse=True):
 
 
 
-    for text in texts:
-        features = create_feature(text, nrange=(1, 4))
-        features = vectorizer.transform(features)
-        prediction = clf.predict(features)[0]
-        print(text, emoji_dict[prediction])
+for text in texts:
+    features = create_feature(text, nrange=(1, 4))
+    features = vectorizer.transform(features)
+    prediction = clf.predict(features)[0]
+    print(text, emoji_dict[prediction])
 et = time.time()
 elapsed_time = et - st
 el_time= elapsed_time/60
